@@ -33,7 +33,7 @@ Softmax calculation is highly susceptible to floating-point overflow (`NaN` or `
 * **Zero-Padded Masking:** Implements safe `-INFINITY` masking for out-of-bounds threads to prevent corrupted max-pooling when layer dimensions do not perfectly align with block boundaries.
 
 ### Known Hardware Limitations & Future Profiling
-*Note: This specific Softmax implementation is currently bounded by maximum block dimensions ($N \le 1024$) and relies heavily on cooperative shared memory. Production profiling reveals that scaling to massive dimensions ($N = 4096$) requires transitioning to Thread Coarsening algorithms and Warp-Level Primitives (`__shfl_down_sync`) to match the extreme vectorization speeds of PyTorch's proprietary ATen backend. This is mapped for a future architecture update.*
+*Note: This specific Softmax implementation is currently bounded by maximum block dimensions ($N \leq 1024$) and relies heavily on cooperative shared memory. Production profiling reveals that scaling to massive dimensions ($N = 4096$) requires transitioning to Thread Coarsening algorithms and Warp-Level Primitives (`__shfl_down_sync`) to match the extreme vectorization speeds of PyTorch's proprietary ATen backend. This is mapped for a future architecture update.*
 
 ![Softmax Benchmark](graphs/softmax_benchmark.png)
 
